@@ -1,6 +1,7 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { productRouter } from '~/routes/v1/productRoute'
+import { headquaterRouter } from '~/routes/v1/headquaterRoute'
 
 const Router = express.Router()
 Router.get('/status', (req, res) => {
@@ -8,5 +9,6 @@ Router.get('/status', (req, res) => {
 })
 
 Router.use('/product', productRouter)
+Router.use('/headquater', headquaterRouter)
 
 export const APIs_V1 = Router
