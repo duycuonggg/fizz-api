@@ -1,9 +1,11 @@
 import Joi from 'joi'
 import ApiError from '~/utils/ApiError'
-import { PHONE_RULE, PHONE_RULE_MESSAGE } from '~/utils/validator'
+import { PHONE_RULE, PHONE_RULE_MESSAGE, OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validator'
+import { StatusCodes } from 'http-status-codes'
 
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
+    userId: Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
     name: Joi.string().min(2).max(20).required().messages({
       'name.string.min': 'headquater name must be at least 2 characters long.',
       'name.string.max': 'headquater name cannot exceed 20 characters,',
@@ -19,7 +21,7 @@ const createNew = async (req, res, next) => {
       'address.any.required': 'Address is required.'
     }),
     phone: Joi.string().pattern(PHONE_RULE).message(PHONE_RULE_MESSAGE)
-  }) 
+  })
   try {
     await correctCondition.validateAsync(req.body, { abortEarly: false })
     next()

@@ -3,11 +3,7 @@ import { headquaterModel } from '~/models/headquaterModel'
 const createNew = async (data) => {
   try {
     const newHeadquater = {
-      name: data.name,
-      email: data.email,
-      address: data.address,
-      phone: data.phone,  
-      // manager: data.manager,
+      ...data,
       createdAt: new Date(),
       updatedAt: new Date()
     }
