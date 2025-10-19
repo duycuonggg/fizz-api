@@ -6,7 +6,7 @@ const USER_COLLECTION_SCHEMA = Joi.object({
   name: Joi.string().min(2).max(30).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
-  role: Joi.string().valid('manager', 'employee').default('employee'),
+  role: Joi.string().valid('director', 'manager', 'employee').default('employee'),
   createdAt: Joi.date().timestamp('javascript').default(Date.now()),
   updatedAt: Joi.date().timestamp('javascript').default(null)
 })

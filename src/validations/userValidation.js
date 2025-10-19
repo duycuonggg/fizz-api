@@ -17,7 +17,7 @@ const createNew = async (req, res, next) => {
       'string.min': 'Password should have a minimum length of {#limit}',
       'string.empty': 'Password cannot be an empty field',
     }),
-    role: Joi.string().valid('manager', 'employee').default('employee').messages({
+    role: Joi.string().valid('director', 'manager', 'employee').default('employee').messages({
       'any.only': 'Role must be either manager or employee'
     }),
   })
