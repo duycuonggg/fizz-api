@@ -6,6 +6,7 @@ import { StatusCodes } from 'http-status-codes'
 const createNew = async (req, res, next) => {
   const correctCondition = Joi.object({
     headquaterId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
+    userId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
     code: Joi.string().min(3).max(10).required().messages({
       'code.string.min': 'Branch code must be at least 3 characters long.',
       'code.string.max': 'Branch code cannot exceed 10 characters.',
