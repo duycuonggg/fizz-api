@@ -1,8 +1,11 @@
 import { GET_DB } from '~/config/mongodb'
 import Joi from 'joi'
+import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validator'
+import { ObjectId } from 'mongodb'
 
 const USER_COLLECTION_NAME = 'user'
 const USER_COLLECTION_SCHEMA = Joi.object({
+  branchId: Joi.string().required().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE),
   name: Joi.string().min(2).max(30).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
@@ -19,7 +22,8 @@ const createNew = async (data) => {
   try {
     const valiData = await validateBeforeCreate(data)
     const newUserToAdd = {
-      ...valiData
+      ...valiData,
+      branchId: new ObjectId(valiData.branchId)
     }
     return await GET_DB().collection(USER_COLLECTION_NAME).insertOne(newUserToAdd)
   } catch (error) {
